@@ -26,15 +26,33 @@ end
 
 def print names
     names.each_with_index do |student, index|
-    puts "#{index}:#{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
     end
+    
 end
 
 def print_footer names
     puts "Overall, we have #{names.count} great students."
 end
 
+def name_select names
+    puts "Which letter would you like to search the list of names with?"
+    letter = gets.chomp.upcase
+    puts "Searching....."
+    names.each do |student|
+    if student[:name][0] == letter
+        puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    else
+        puts "We have no students whose name begin with that letter."
+    end
+    
+    end
+end
+
+
 students = input_students
 print_header
 print(students)
 print_footer(students)
+
+name_select(students)
