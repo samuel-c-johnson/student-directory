@@ -1,4 +1,4 @@
-
+$line_width = 100
 
 def input_students
     puts "Please enter the full name of the students."
@@ -22,19 +22,19 @@ def input_students
 end
 
 def print_header
-    puts 'The students of Villians Academy:'
-    puts '----------------'
+    puts 'The students of Villians Academy:'.center($line_width)
+    puts '----------------'.center($line_width)
 end
 
 def print names
     names.each_with_index do |student, index|
-    puts "#{index}: #{student[:name]}, Hobbies: #{student[:hobbies]}, (#{student[:cohort]} cohort)"
+    puts "#{index}: #{student[:name]}, Hobbies: #{student[:hobbies]}, (#{student[:cohort]} cohort)".center($line_width)
 end
     
 end
 
 def print_footer names
-    puts "Overall, we have #{names.count} great students."
+    puts "Overall, we have #{names.count} great students.".center($line_width)
 end
 
 def name_select names
