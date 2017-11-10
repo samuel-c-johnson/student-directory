@@ -26,8 +26,10 @@ end
 
 def print names
     names.each_with_index do |student, index|
+    if student[:name].length < 12
     puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
     end
+end
     
 end
 
@@ -42,8 +44,6 @@ def name_select names
     names.each do |student|
     if student[:name][0] == letter
         puts "#{student[:name]} (#{student[:cohort]} cohort)"
-    else
-        puts "We have no students whose name begin with that letter."
     end
     
     end
@@ -55,4 +55,3 @@ print_header
 print(students)
 print_footer(students)
 
-name_select(students)
