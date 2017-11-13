@@ -5,6 +5,7 @@ def input_students
     puts "To finish, just hit return twice."
     #create an empty array
     students = []
+    cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     #get the name
     name = gets.chomp
     #while the name isn't empty, repeat this code
@@ -12,7 +13,12 @@ def input_students
         #add the student hash to the array
         puts "Please enter any hobbies the student my have."
         hobbies = gets.chomp
-        students << {name: name, hobbies: hobbies, cohort: :November}
+        puts " Please enter which cohort."
+        cohort = gets.chomp
+        if !cohorts.include?(cohort) == true
+            cohort = 'Not known'
+        end
+        students << {name: name, hobbies: hobbies, cohort: cohort}
         puts "Now we have #{students.count} students"
         #get another name from the user
         name = gets.chomp
