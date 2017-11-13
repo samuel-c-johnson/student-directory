@@ -14,7 +14,7 @@ def input_students
         puts "Please enter any hobbies the student my have."
         hobbies = gets.chomp
         puts " Please enter which cohort."
-        cohort = gets.chomp
+        cohort = gets.chomp.capitalize
         if !cohorts.include?(cohort) == true
             cohort = 'Not known'
         end
@@ -55,9 +55,16 @@ def name_select names
     end
 end
 
+def sort_by_cohort(students)
+   sorted = students.sort_by {|hash| hash[:cohort]}
+   sorted.each_with_index do |student, index|
+     puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
+   end
+end
 
 students = input_students
 print_header
 print(students)
 print_footer(students)
 
+sort_by_cohort(students)
