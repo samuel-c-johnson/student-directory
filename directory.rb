@@ -7,7 +7,7 @@ def input_students
     students = []
     cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     #get the name
-    name = gets.chomp
+    name = gets.strip
     #while the name isn't empty, repeat this code
     while !name.empty? do
         #add the student hash to the array
@@ -72,4 +72,3 @@ print_header
 print(students)
 print_footer(students)
 
-sort_by_cohort(students)
