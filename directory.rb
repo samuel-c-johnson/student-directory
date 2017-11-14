@@ -1,5 +1,33 @@
 $line_width = 100
 
+def interactive_menu
+    students = []
+    loop do
+        #1. print the menu and ask the user what to do.
+        puts "1. Input the students"
+        puts "2. Show the students"
+        puts "9. Exit"
+        #2. Read the input and save it to a variable.
+        selection = gets.chomp
+        #3. Do what the user has asked
+        case selection
+          when "1"
+              students = input_students
+          when "2"
+              print_header
+              print(students)
+              print_footer(students)
+          when "9"
+              exit
+          else
+              puts "I don't know what you meant, try again"
+        end
+    end
+end
+
+
+
+
 def input_students
     puts "Please enter the full name of the students."
     puts "To finish, just hit return twice."
@@ -11,9 +39,9 @@ def input_students
     #while the name isn't empty, repeat this code
     while !name.empty? do
         #add the student hash to the array
-        puts "Please enter any hobbies the student my have."
+        puts "Please enter any hobbies the student may have."
         hobbies = gets.chomp
-        puts " Please enter which cohort."
+        puts "Please enter which cohort."
         cohort = gets.chomp.capitalize
         if !cohorts.include?(cohort) == true
             cohort = 'Not known'
@@ -50,10 +78,13 @@ end
 
 
 def print_footer names
-    if names.count >= 1
-        puts "Overall, we have #{names.count} great students.".center($line_width)
-    else
+    if names.count < 1
         puts ''
+    elsif    
+        names.count == 1
+        puts "Overall, we have #{names.count} great student.".center($line_width)
+    else
+        puts "Overall, we have #{names.count} great students.".center($line_width)
     end
 end
 
@@ -76,8 +107,5 @@ def sort_by_cohort(students)
    end
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+interactive_menu
 
