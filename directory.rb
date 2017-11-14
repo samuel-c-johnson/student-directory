@@ -4,7 +4,7 @@ $line_width = 100
 def interactive_menu
     loop do
         print_menu                       #1. print the menu and ask the user what to do.
-        process(gets.chomp)              #2. Read the input and save it to a variable.
+        process(STDIN.gets.chomp)              #2. Read the input and save it to a variable.
         end                              #3. Do what the user has asked
 end
 
@@ -48,14 +48,14 @@ def input_students
     
     cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     #get the name
-    name = gets.strip
+    name = STDIN.gets.chomp
     #while the name isn't empty, repeat this code
     while !name.empty? do
         #add the student hash to the array
         puts "Please enter any hobbies the student may have."
-        hobbies = gets.chomp
+        hobbies = STDIN.gets.chomp
         puts "Please enter which cohort."
-        cohort = gets.chomp.capitalize
+        cohort = STDIN.gets.chomp.capitalize
         if !cohorts.include?(cohort) == true
             cohort = 'Not known'
         end
@@ -67,7 +67,7 @@ def input_students
             puts "Now we have #{@students.count} students"
         end
         #get another name from the user
-        name = gets.chomp
+        name = STDIN.gets.chomp
     end
     #return the array of students
     @students
@@ -113,7 +113,7 @@ def save_students
     file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
     file = File.open("students.csv", "r")
     file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
@@ -121,6 +121,20 @@ def load_students
   end
   file.close
 end
+
+def try_load_students
+    filename = ARGV.first #first argument from command line
+    return if filename.nil? #get out of the method if it isn't given
+    if File.exists?(filename) #if it exists
+        load_students(filename)
+        puts "Loaded #{@students.count} from #{filename}"
+    else #if it doesn't exist
+        puts "Sorry, #{filename} does not exist."
+        exit
+    end
+end
+
+try_load_students
 
 interactive_menu
 
