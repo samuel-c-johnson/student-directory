@@ -52,14 +52,12 @@ def input_students
     #while the name isn't empty, repeat this code
     while !name.empty? do
         #add the student hash to the array
-        puts "Please enter any hobbies the student may have."
-        hobbies = STDIN.gets.chomp
         puts "Please enter which cohort."
         cohort = STDIN.gets.chomp.capitalize
         if !cohorts.include?(cohort) == true
             cohort = 'Not known'
         end
-        @students << {name: name, hobbies: hobbies, cohort: cohort}
+        students_to_array(name, cohort)
         
         if @students.count <= 1       
             puts "Now we have #{@students.count} student"
@@ -117,7 +115,7 @@ def load_students(filename = "students.csv")
     file = File.open("students.csv", "r")
     file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    students_to_array(name, cohort)
   end
   file.close
 end
@@ -132,6 +130,10 @@ def try_load_students
         puts "Sorry, #{filename} does not exist."
         exit
     end
+end
+
+def students_to_array(name, cohort)
+    @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students
