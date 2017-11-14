@@ -1,38 +1,45 @@
 $line_width = 100
+@students = [] # an empty array accessible to all methods
 
 def interactive_menu
-    students = []
     loop do
-        #1. print the menu and ask the user what to do.
-        puts "1. Input the students"
-        puts "2. Show the students"
-        puts "9. Exit"
-        #2. Read the input and save it to a variable.
-        selection = gets.chomp
-        #3. Do what the user has asked
-        case selection
-          when "1"
-              students = input_students
-          when "2"
-              print_header
-              print(students)
-              print_footer(students)
-          when "9"
-              exit
-          else
-              puts "I don't know what you meant, try again"
-        end
-    end
+        print_menu                       #1. print the menu and ask the user what to do.
+        process(gets.chomp)              #2. Read the input and save it to a variable.
+        end                              #3. Do what the user has asked
 end
 
+def print_menu
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+end
 
+def show_students
+    print_header
+    print_students_list
+    print_footer
+end
 
+def process(selection)
+    case selection
+     when "1"
+        input_students
+     when "2"
+        show_students
+     when "9"
+        exit
+     else
+        puts "I don't know what you meant, try again"
+    end
+end
+      
+    
 
 def input_students
     puts "Please enter the full name of the students."
     puts "To finish, just hit return twice."
     #create an empty array
-    students = []
+    
     cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     #get the name
     name = gets.strip
@@ -46,18 +53,18 @@ def input_students
         if !cohorts.include?(cohort) == true
             cohort = 'Not known'
         end
-        students << {name: name, hobbies: hobbies, cohort: cohort}
+        @students << {name: name, hobbies: hobbies, cohort: cohort}
         
-        if students.count <= 1       
-            puts "Now we have #{students.count} student"
+        if @students.count <= 1       
+            puts "Now we have #{@students.count} student"
         else
-            puts "Now we have #{students.count} students"
+            puts "Now we have #{@students.count} students"
         end
         #get another name from the user
         name = gets.chomp
     end
     #return the array of students
-    students
+    @students
 end
 
 def print_header
@@ -65,9 +72,9 @@ def print_header
     puts '----------------'.center($line_width)
 end
 
-def print names
-    if names.count >= 1
-        names.each_with_index do |student, index|
+def print_students_list
+    if @students.count >= 1
+        @students.each_with_index do |student, index|
         puts "#{index}: #{student[:name]}, Hobbies: #{student[:hobbies]}, (#{student[:cohort]} cohort)".center($line_width)
         end
     else
@@ -77,35 +84,41 @@ end
     
 
 
-def print_footer names
-    if names.count < 1
+def print_footer 
+    if @students.count < 1
         puts ''
     elsif    
-        names.count == 1
-        puts "Overall, we have #{names.count} great student.".center($line_width)
+        @students.count == 1
+        puts "Overall, we have #{@students.count} great student.".center($line_width)
     else
-        puts "Overall, we have #{names.count} great students.".center($line_width)
+        puts "Overall, we have #{@students.count} great students.".center($line_width)
     end
 end
 
-def name_select names
-    puts "Which letter would you like to search the list of names with?"
-    letter = gets.chomp.upcase
-    puts "Searching....."
-    names.each do |student|
-    if student[:name][0] == letter
-        puts "#{student[:name]} (#{student[:cohort]} cohort)"
-    end
-    
-    end
-end
-
-def sort_by_cohort(students)
-   sorted = students.sort_by {|hash| hash[:cohort]}
-   sorted.each_with_index do |student, index|
-     puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
-   end
-end
 
 interactive_menu
 
+
+
+
+
+
+def name_select names
+     puts "Which letter would you like to search the list of names with?"
+     letter = gets.chomp.upcase
+     puts "Searching....."
+     names.each do |student|
+     if student[:name][0] == letter
+         puts "#{student[:name]} (#{student[:cohort]} cohort)"
+     end
+     
+     end
+end
+ 
+def sort_by_cohort(students)
+    sorted = students.sort_by {|hash| hash[:cohort]}
+    sorted.each_with_index do |student, index|
+      puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
+     end
+end
+  
