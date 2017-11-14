@@ -38,14 +38,23 @@ def print_header
 end
 
 def print names
-    names.each_with_index do |student, index|
-    puts "#{index}: #{student[:name]}, Hobbies: #{student[:hobbies]}, (#{student[:cohort]} cohort)".center($line_width)
+    if names.count >= 1
+        names.each_with_index do |student, index|
+        puts "#{index}: #{student[:name]}, Hobbies: #{student[:hobbies]}, (#{student[:cohort]} cohort)".center($line_width)
+        end
+    else
+        puts "No student information has been entered.".center($line_width)
+    end
 end
     
-end
+
 
 def print_footer names
-    puts "Overall, we have #{names.count} great students.".center($line_width)
+    if names.count >= 1
+        puts "Overall, we have #{names.count} great students.".center($line_width)
+    else
+        puts ''
+    end
 end
 
 def name_select names
